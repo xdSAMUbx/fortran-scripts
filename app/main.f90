@@ -2,8 +2,8 @@ program prueba
    use iso_fortran_env
    use mod_eye
    implicit none
+
    integer(int64) :: mat(3,3), vec(3), i,j
-   logical :: has_zero
    mat = reshape([1,2,3,4,5,6,7,8,9],[3,3])
    vec = 0
    ! Recorrido por columnas
