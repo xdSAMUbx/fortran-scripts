@@ -1,8 +1,5 @@
 program main
-  use fortran_scripts, only: say_hello
-  implicit none
-  integer::i
+   implicit none
 
-  write(*,*)
-  call say_hello()
+   write(*,*)"Hola Mundo!"
 end program main

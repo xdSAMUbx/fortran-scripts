@@ -18,11 +18,11 @@ module mod_eye
 
     function eyeReal(n) result(mat)
         integer(int32) :: i
-        integer(int32), intent(in) :: n
+        real(real64), intent(in) :: n
         real(real64), allocatable :: mat(:,:)
-        allocate(mat(n,n))
+        allocate(mat(int(n),int(n)))
         mat = 0
-        do concurrent (i=1:n)
+        do concurrent (i=1:int(n))
             mat(i,i) = 1.0
         end do
     end function eyeReal
