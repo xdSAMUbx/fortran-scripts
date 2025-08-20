@@ -1,8 +1,9 @@
+#:set n=5
 program prueba
    use iso_fortran_env
    implicit none
    integer :: i
-   do i = 1, 5
+   do i = 1, ${n}$
       write(*,fmt="(a,2x,i0)") "El número es: ",i
    end do
 end program prueba
