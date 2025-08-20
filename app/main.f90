@@ -1,8 +1,12 @@
 program prueba
    use iso_fortran_env
+   use mod_eye
    implicit none
-   integer :: i
-   do i = 1, 5
-      write(*,fmt="(a,2x,i0)") "El número es: ",i
-   end do
+   integer, allocatable :: x(:,:)
+   integer :: n = 10
+
+   x = eye(n)
+   write(*,'(10(i0, 1x))') x
+   deallocate(x)
+
 end program prueba
