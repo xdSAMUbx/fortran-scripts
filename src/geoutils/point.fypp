@@ -1,39 +1,70 @@
 #:set dtypes = [("i","integer","int64"),("r","real","real128")]
 #:set puntos = ["Point2d","Point3d","Point4d"]
-#:set args = ["z","t"]
+#:set args = ["x","y","z","t"]
 #:set values = ["s","arr"]
-#:set desc = ["scalar","array"]
 
 module mod_point
    use iso_fortran_env
    implicit none
-#:for pfx, ftype, isotype in dtypes
-   !-----------------------------------------------------------------
-   ! ---------------------- ${ftype}$ datatype ----------------------
-   !-----------------------------------------------------------------
-
-#:for id, pts in enumerate(puntos)
-#:if id == 0
-   !> ${pfx}$${pts}$: It let you create a data type for
-   !> ${ftype}$ and contains the iso fortran type ${isotype}$
-   type :: ${pfx}$${pts}$
-   ${ftype}$(${isotype}$) :: x, y
-   end type ${pfx}$${pts}$
+#:for prefix, ftype, isotype in dtypes
+#:for i, pts in enumerate(puntos)
+#:if pts == "Point2d"
+   type :: ${prefix}$${pts}$
+   ${ftype}$(${isotype}$) :: ${", ".join(args[0:2])}$
+   end type ${prefix}$${pts}$
 
 #:else
-   !> ${pfx}$${puntos[id-1]}$: It let you create a data type for
-   !> ${ftype}$ and contains the iso fortran type ${isotype}$
-   type, extends (${pfx}$${puntos[id-1]}$) :: ${pfx}$${pts}$
-   ${ftype}$(${isotype}$) :: ${args[id-1]}$
-   end type ${pfx}$${pts}$
+   type, extends(${prefix}$${puntos[i-1]}$) :: ${prefix}$${pts}$
+#:for j in range(1)
+   ${ftype}$(${isotype}$) :: ${args[j+i+1]}$
+#:endfor
+   end type ${prefix}$${pts}$
 
 #:endif
 #:endfor
 #:endfor
    contains
-#:for pfx, ftype, isotype in dtypes
-#:for pts in puntos
 
+#:for prefix, ftype, isotype in dtypes
+#:for id, pts in enumerate(puntos)
+#:for val in values
+#:if id == 0
+   pure function ${prefix}$${pts}$${val}$(${", ".join(args[0:2])}$) result(res)
+   implicit none
+
+#:if val == "s"
+   ${ftype}$(${isotype}$), intent(in) :: ${", ".join(args[0:2])}$
+   type(${prefix}$${pts}$) :: res
+
+#:for j in range(2)
+   res%${args[j]}$ = ${args[j]}$
+#:endfor
+#:else
+   ${ftype}$(${isotype}$), intent(in) :: ${"(:), ".join(args[0:2])}$(:)
+   ${ftype}$(${isotype}$), allocatable :: res
+#:endif
+   end function ${prefix}$${pts}$${val}$
+
+#:else
+#! Aquí inicia el bucle para los valores de 3 y 4 puntos
+   pure function ${prefix}$${pts}$${val}$(${", ".join(args[0:2+id])}$) result(res)
+   implicit none
+
+#:if val == "s"
+   ${ftype}$(${isotype}$), intent(in) :: ${", ".join(args[0:2+id])}$
+   type(${prefix}$${pts}$)  :: res
+
+#:for j in range(0,2+id)
+   res%${args[j]}$ = ${args[j]}$
+#:endfor
+#:else
+   ${ftype}$(${isotype}$), intent(in) :: ${"(:), ".join(args[0:2+id])}$(:)
+   ${ftype}$(${isotype}$), allocatable :: res
+#:endif
+   end function ${prefix}$${pts}$${val}$
+
+#:endif
+#:endfor
 #:endfor
 #:endfor
 end module mod_point
