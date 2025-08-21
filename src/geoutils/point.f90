@@ -2,32 +2,33 @@
 module mod_point
    use iso_fortran_env
    implicit none
-
+   public :: point, iPoint2d,rPoint2d, iPoint3d, rPoint3d, &
+      iPoint4d, rPoint4d
 !------------------------------------------
 !------------- Definición de tipos --------
 !------------------------------------------
    type :: iPoint2d
-   integer(int64) :: x, y
+   integer(int32) :: x, y
    end type iPoint2d
 
    type, extends(iPoint2d) :: iPoint3d
-   integer(int64) :: z
+   integer(int32) :: z
    end type iPoint3d
 
    type, extends(iPoint3d) :: iPoint4d
-   integer(int64) :: t
+   integer(int32) :: t
    end type iPoint4d
 
    type :: rPoint2d
-   real(real128) :: x, y
+   real(real64) :: x, y
    end type rPoint2d
 
    type, extends(rPoint2d) :: rPoint3d
-   real(real128) :: z
+   real(real64) :: z
    end type rPoint3d
 
    type, extends(rPoint3d) :: rPoint4d
-   real(real128) :: t
+   real(real64) :: t
    end type rPoint4d
 
 
@@ -57,7 +58,7 @@ module mod_point
 ! integer part
    pure function iPoint2ds(x, y) result(res)
    implicit none
-   integer(int64), intent(in) :: x, y
+   integer(int32), intent(in) :: x, y
    type(iPoint2d) :: res
 
    res = iPoint2d(x, y)
@@ -65,7 +66,7 @@ module mod_point
 
    pure function iPoint2darr(x, y) result(res)
    implicit none
-   integer(int64), intent(in) :: x(:), y(:)
+   integer(int32), intent(in) :: x(:), y(:)
    type(iPoint2d), allocatable :: res(:)
    integer :: i
 
@@ -77,7 +78,7 @@ module mod_point
 
    pure function iPoint3ds(x, y, z) result(res)
    implicit none
-   integer(int64), intent(in) :: x, y, z
+   integer(int32), intent(in) :: x, y, z
    type(iPoint3d) :: res
 
    res = iPoint3d(x, y, z)
@@ -85,7 +86,7 @@ module mod_point
 
    pure function iPoint3darr(x, y, z) result(res)
    implicit none
-   integer(int64), intent(in) :: x(:), y(:), z(:)
+   integer(int32), intent(in) :: x(:), y(:), z(:)
    type(iPoint3d), allocatable :: res(:)
    integer :: i
 
@@ -97,7 +98,7 @@ module mod_point
 
    pure function iPoint4ds(x, y, z, t) result(res)
    implicit none
-   integer(int64), intent(in) :: x, y, z, t
+   integer(int32), intent(in) :: x, y, z, t
    type(iPoint4d) :: res
 
    res = iPoint4d(x, y, z, t)
@@ -105,7 +106,7 @@ module mod_point
 
    pure function iPoint4darr(x, y, z, t) result(res)
    implicit none
-   integer(int64), intent(in) :: x(:), y(:), z(:), t(:)
+   integer(int32), intent(in) :: x(:), y(:), z(:), t(:)
    type(iPoint4d), allocatable :: res(:)
    integer :: i
 
@@ -118,7 +119,7 @@ module mod_point
 ! real part
    pure function rPoint2ds(x, y) result(res)
    implicit none
-   real(real128), intent(in) :: x, y
+   real(real64), intent(in) :: x, y
    type(rPoint2d) :: res
 
    res = rPoint2d(x, y)
@@ -126,7 +127,7 @@ module mod_point
 
    pure function rPoint2darr(x, y) result(res)
    implicit none
-   real(real128), intent(in) :: x(:), y(:)
+   real(real64), intent(in) :: x(:), y(:)
    type(rPoint2d), allocatable :: res(:)
    integer :: i
 
@@ -138,7 +139,7 @@ module mod_point
 
    pure function rPoint3ds(x, y, z) result(res)
    implicit none
-   real(real128), intent(in) :: x, y, z
+   real(real64), intent(in) :: x, y, z
    type(rPoint3d) :: res
 
    res = rPoint3d(x, y, z)
@@ -146,7 +147,7 @@ module mod_point
 
    pure function rPoint3darr(x, y, z) result(res)
    implicit none
-   real(real128), intent(in) :: x(:), y(:), z(:)
+   real(real64), intent(in) :: x(:), y(:), z(:)
    type(rPoint3d), allocatable :: res(:)
    integer :: i
 
@@ -158,7 +159,7 @@ module mod_point
 
    pure function rPoint4ds(x, y, z, t) result(res)
    implicit none
-   real(real128), intent(in) :: x, y, z, t
+   real(real64), intent(in) :: x, y, z, t
    type(rPoint4d) :: res
 
    res = rPoint4d(x, y, z, t)
@@ -166,7 +167,7 @@ module mod_point
 
    pure function rPoint4darr(x, y, z, t) result(res)
    implicit none
-   real(real128), intent(in) :: x(:), y(:), z(:), t(:)
+   real(real64), intent(in) :: x(:), y(:), z(:), t(:)
    type(rPoint4d), allocatable :: res(:)
    integer :: i
 

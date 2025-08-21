@@ -1,4 +1,4 @@
-#:set dtypes = [("i","integer","int64"),("r","real","real128")]
+#:set dtypes = [("i","integer","int32"),("r","real","real64")]
 #:set puntos = ["Point2d","Point3d","Point4d"]
 #:set args = ["x","y","z","t"]
 #:set values = ["s","arr"]
@@ -6,7 +6,8 @@
 module mod_point
    use iso_fortran_env
    implicit none
-
+   public :: point, iPoint2d,rPoint2d, iPoint3d, rPoint3d, &
+      iPoint4d, rPoint4d
 !------------------------------------------
 !------------- Definición de tipos --------
 !------------------------------------------
