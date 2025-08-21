@@ -6,6 +6,10 @@
 module mod_point
    use iso_fortran_env
    implicit none
+
+!------------------------------------------
+!------------- Definición de tipos --------
+!------------------------------------------
 #:for prefix, ftype, isotype in dtypes
 #:for i, pts in enumerate(puntos)
 #:if pts == "Point2d"
@@ -15,56 +19,56 @@ module mod_point
 
 #:else
    type, extends(${prefix}$${puntos[i-1]}$) :: ${prefix}$${pts}$
-#:for j in range(1)
-   ${ftype}$(${isotype}$) :: ${args[j+i+1]}$
-#:endfor
+   ${ftype}$(${isotype}$) :: ${args[i+1]}$
    end type ${prefix}$${pts}$
 
 #:endif
 #:endfor
 #:endfor
+
+!------------------------------------------
+!------------- Interfaz pública -----------
+!------------------------------------------
+   interface point
+#:for prefix, ftype, isotype in dtypes
+#:for pts in puntos
+#:for val in values
+      module procedure ${prefix}$${pts}$${val}$
+#:endfor
+#:endfor
+#:endfor
+   end interface point
+
    contains
 
+!------------------------------------------
+!------------- Constructores --------------
+!------------------------------------------
 #:for prefix, ftype, isotype in dtypes
+! ${ftype}$ part
 #:for id, pts in enumerate(puntos)
 #:for val in values
-#:if id == 0
-   pure function ${prefix}$${pts}$${val}$(${", ".join(args[0:2])}$) result(res)
-   implicit none
-
-#:if val == "s"
-   ${ftype}$(${isotype}$), intent(in) :: ${", ".join(args[0:2])}$
-   type(${prefix}$${pts}$) :: res
-
-#:for j in range(2)
-   res%${args[j]}$ = ${args[j]}$
-#:endfor
-#:else
-   ${ftype}$(${isotype}$), intent(in) :: ${"(:), ".join(args[0:2])}$(:)
-   ${ftype}$(${isotype}$), allocatable :: res
-#:endif
-   end function ${prefix}$${pts}$${val}$
-
-#:else
-#! Aquí inicia el bucle para los valores de 3 y 4 puntos
    pure function ${prefix}$${pts}$${val}$(${", ".join(args[0:2+id])}$) result(res)
    implicit none
-
 #:if val == "s"
    ${ftype}$(${isotype}$), intent(in) :: ${", ".join(args[0:2+id])}$
-   type(${prefix}$${pts}$)  :: res
+   type(${prefix}$${pts}$) :: res
 
-#:for j in range(0,2+id)
-   res%${args[j]}$ = ${args[j]}$
-#:endfor
+   res = ${prefix}$${pts}$(${", ".join(args[0:2+id])}$)
 #:else
    ${ftype}$(${isotype}$), intent(in) :: ${"(:), ".join(args[0:2+id])}$(:)
-   ${ftype}$(${isotype}$), allocatable :: res
+   type(${prefix}$${pts}$), allocatable :: res(:)
+   integer :: i
+
+   allocate(res(size(${args[0]}$)))
+   do concurrent (i=1:size(${args[0]}$))
+      res(i) = ${prefix}$${pts}$(${", ".join([arg + '(i)' for arg in args[0:2+id]])}$)
+   end do
 #:endif
    end function ${prefix}$${pts}$${val}$
 
-#:endif
 #:endfor
 #:endfor
 #:endfor
+
 end module mod_point
