@@ -1,0 +1,39 @@
+#:set dtypes = [("i","integer","int64"),("r","real","real128")]
+#:set puntos = ["Point2d","Point3d","Point4d"]
+#:set args = ["z","t"]
+#:set values = ["s","arr"]
+#:set desc = ["scalar","array"]
+
+module mod_point
+   use iso_fortran_env
+   implicit none
+#:for pfx, ftype, isotype in dtypes
+   !-----------------------------------------------------------------
+   ! ---------------------- ${ftype}$ datatype ----------------------
+   !-----------------------------------------------------------------
+
+#:for id, pts in enumerate(puntos)
+#:if id == 0
+   !> ${pfx}$${pts}$: It let you create a data type for
+   !> ${ftype}$ and contains the iso fortran type ${isotype}$
+   type :: ${pfx}$${pts}$
+   ${ftype}$(${isotype}$) :: x, y
+   end type ${pfx}$${pts}$
+
+#:else
+   !> ${pfx}$${puntos[id-1]}$: It let you create a data type for
+   !> ${ftype}$ and contains the iso fortran type ${isotype}$
+   type, extends (${pfx}$${puntos[id-1]}$) :: ${pfx}$${pts}$
+   ${ftype}$(${isotype}$) :: ${args[id-1]}$
+   end type ${pfx}$${pts}$
+
+#:endif
+#:endfor
+#:endfor
+   contains
+#:for pfx, ftype, isotype in dtypes
+#:for pts in puntos
+
+#:endfor
+#:endfor
+end module mod_point
