@@ -1,6 +1,9 @@
 program main
    use iso_fortran_env
-   use mod_point
    implicit none
-   write(*,*)"Hola desde main!!"
+   integer :: me, np
+   me = this_image()
+   np = num_images()
+
+   write(*,*) "Hola desde: ",me," de ",np
 end program main

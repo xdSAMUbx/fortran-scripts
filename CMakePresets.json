@@ -1,0 +1,22 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 22
+  },
+  "configurePresets": [
+    {
+      "name": "caf",
+      "displayName": "Fortran Coarray Build",
+      "generator": "Ninja",
+      "toolchainFile": "${sourceDir}/config/fortran-caf-toolchain.cmake",
+      "binaryDir": "${sourceDir}/build"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "caf",
+      "configurePreset": "caf"
+    }
+  ]
+}

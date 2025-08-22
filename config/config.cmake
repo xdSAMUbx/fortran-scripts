@@ -1,3 +1,4 @@
+# Esta función permite procesar todos los fypp de las carpetas creadas inicialmente
 function(processFypp currentSrcDir outVar)
     # Obtiene todos los archivos FYPP en el directorio especificado
     file(GLOB FYPP_FILES "${currentSrcDir}/*.fypp")
@@ -31,3 +32,4 @@ function(processFypp currentSrcDir outVar)
     # Devuelve la lista al caller
     set(${outVar} "${GENERATED_F90_FILES}" PARENT_SCOPE)
 endfunction()
+
