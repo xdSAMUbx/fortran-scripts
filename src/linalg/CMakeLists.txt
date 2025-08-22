@@ -5,3 +5,8 @@ set(CMAKE_Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/mod)
 processFypp(${CMAKE_CURRENT_SOURCE_DIR} GENERATED_SOURCES)
 
 add_library(linalg STATIC ${GENERATED_SOURCES})
+
+target_link_libraries(linalg PUBLIC
+    LAPACK::LAPACK
+    BLAS::BLAS
+)
