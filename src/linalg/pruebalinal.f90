@@ -1,4 +1,4 @@
 program main
    implicit none
-   write(*,*)"Hola desde main!!"
+   write(*,*)"Hola desde linal!!"
 end program main
