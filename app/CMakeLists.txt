@@ -9,7 +9,4 @@ target_link_libraries(main PUBLIC
     linalg
     BLAS::BLAS
     LAPACK::LAPACK
-    /usr/lib/x86_64-linux-gnu/open-coarrays/openmpi/lib/libcaf_mpi.a
-    /usr/lib/x86_64-linux-gnu/libopenmpi.so # Esta es la nueva línea
-    /usr/lib/x86_64-linux-gnu/libopenblas.so
 )

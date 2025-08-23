@@ -8,6 +8,6 @@ set(FFLAGS_COMMON
     "-finline-arg-packing"
     "-ffree-line-length-none"
     "-fimplicit-none"
-    "-fcoarray=lib"
+    "-fcoarray=single"
 )
 

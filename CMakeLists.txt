@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.5)
 project(myProject VERSION 0.0.1 LANGUAGES Fortran)
 
 # Genera dependencia en los modulos para compilar con ninja
@@ -14,7 +14,6 @@ include_directories("${CMAKE_BINARY_DIR}/mod")
 # Librerias necesarias para el proyecto
 find_package(LAPACK REQUIRED)
 find_package(BLAS REQUIRED)
-find_package(MPI REQUIRED)
 
 # Permitiendo la depuración
 set(CMAKE_BUILD_TYPE Debug)
