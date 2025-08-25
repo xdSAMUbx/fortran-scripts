@@ -1,6 +1,4 @@
-option(BUILD_LIBRARIES "Build the src libraries" ON)
-
-if(BUILD_LIBRARIES)
-    add_subdirectory(geoutils)
-    add_subdirectory(linalg)
-endif()
+add_executable(arrays1 arrays1.f90)
+add_executable(arrays2 arrays2.f90)
+add_executable(arrays3 arrays3.f90)
+add_executable(timer timer.f90)

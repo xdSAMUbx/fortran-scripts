@@ -14,10 +14,8 @@ include_directories("${CMAKE_BINARY_DIR}/mod")
 # Librerias necesarias para el proyecto
 find_package(LAPACK REQUIRED)
 find_package(BLAS REQUIRED)
-find_package(MPI REQUIRED)
 
 # Permitiendo la depuración
 set(CMAKE_BUILD_TYPE Debug)
 
 add_subdirectory(src)
-add_subdirectory(app)
