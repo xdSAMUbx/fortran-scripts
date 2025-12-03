@@ -5,7 +5,7 @@ module mod_linspace
    subroutine linspace(ini, fin, res)
       implicit none
       real(real32), intent(in) :: ini, fin
-      real(real32), intent(out):: res(:)
+      real(real32), intent(out) :: res(:)
       integer(int32) :: i, n
       real(real32) :: step
       n = size(res)
