@@ -18,13 +18,29 @@ contains
         implicit none
         character(len=*), intent(inout) :: str1, str2
         character(len=len(str1)) :: temp
-        if ( lgt(str1,str2) ) then
-            temp = str1
-            str1 = str2
-            str2 = temp
-        end if
+        
+        temp = str1
+        str1 = str2
+        str2 = temp
+        
     end subroutine swap
 
+    subroutine particion(arr)
+        character(len=*), allocatable, intent(inout) :: arr(:)
+        character(len=len(arr)) :: pivot
+        integer :: i
+
+        pivot = arr(1)
+        do i = 1, size(arr)
+            if ( llt(arr(i),pivot) ) then
+                call swap(arr(i), pivot)
+            end if
+        end do
+
+        do i = 1, size(arr)
+            write(*,*) arr(i)
+        end do
+    end subroutine particion
 end module algorithms
 
 module pruebas
@@ -61,9 +77,8 @@ program generador_matriz_A
     use algorithms
     use pruebas
     implicit none
-    character(len=10) :: str1, str2
-    str1 = "Zanahoria"
-    str2 = "Banana"
-    call swap(str1,str2)
-    write(*,*) str1, str2
+    character(len=10), allocatable :: v(:)
+    allocate(v(4))
+    v = [character(len=10) :: "A15-TBM-1","15-BM-1","BM-1","BM-2"]
+    call particion(v)
 end program generador_matriz_A
