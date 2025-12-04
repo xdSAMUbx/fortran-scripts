@@ -22,7 +22,8 @@ contains
         temp = str1
         str1 = str2
         str2 = temp
-        
+
+        write(*,*) str1, str2
     end subroutine swap
 
     subroutine particion(arr)
