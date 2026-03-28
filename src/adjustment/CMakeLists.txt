@@ -1,1 +1,0 @@
-add_executable(genA gen_A.f90)
