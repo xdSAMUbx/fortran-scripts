@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.25)
 project(myProject VERSION 0.0.1 LANGUAGES Fortran)
 
 # Genera dependencia en los modulos para compilar con ninja
