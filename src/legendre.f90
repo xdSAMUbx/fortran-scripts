@@ -146,7 +146,7 @@ program physical_geodesy
     real(real64) :: lat, ini, fin
     real(real64), allocatable :: P(:,:)
 
-    lat = 45.0_real64
+    lat = 0.0_real64
     call cpu_time(ini)
     call MFC_ALF_FUKU(Nmax, lat, P)
     call cpu_time(fin)
